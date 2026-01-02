@@ -1,7 +1,7 @@
 import { Observador } from "./Observador";
 
 export interface Notificador {
-    agregarObservador(obs: Observador): void;
-    eliminarObservador(obs: Observador): void;
-    notificarObservadores(): void;
+    agregar(obs: Observador): void;
+    eliminar(obs: Observador): void;
+    notificar(): void;
 }

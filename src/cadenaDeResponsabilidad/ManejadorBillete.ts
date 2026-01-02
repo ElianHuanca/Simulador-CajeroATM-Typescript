@@ -1,10 +1,11 @@
-import { DepositoYRetiro } from "./DepositoYRetiro.ts";
+import { DepositoYRetiro } from "./DepositoYRetiro";
+import { Cajero } from "./Cajero";
 
 
-abstract class ManejadorBillete {
+export abstract class ManejadorBillete {
     protected manejadorSiguiente: ManejadorBillete | null = null;
 
-    function establecerSiguiente(manejador: ManejadorBillete): void {
+    establecerSiguiente(manejador: ManejadorBillete): void {
         this.manejadorSiguiente = manejador;
     }
 
