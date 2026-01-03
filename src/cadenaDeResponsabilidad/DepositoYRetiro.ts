@@ -1,9 +1,9 @@
 
 export class DepositoYRetiro {
 
-    constructor(private cantidadOperacion: number,
-        private totalCuenta: number,
-        private cantidadRestante: number) {
+    constructor(private totalCuenta: number,
+        private cantidadOperacion: number,
+        private cantidadRestante: number = 0) {
     }
 
     getCantidadOperacion(): number {

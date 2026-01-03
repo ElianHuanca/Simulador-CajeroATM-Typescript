@@ -1,5 +1,5 @@
-import { DepositoYRetiro } from "./DepositoYRetiro";
-import { Cajero } from "./Cajero";
+import { DepositoYRetiro } from "./DepositoYRetiro.js";
+import { Cajero } from "./Cajero.js";
 
 
 export abstract class ManejadorBillete {

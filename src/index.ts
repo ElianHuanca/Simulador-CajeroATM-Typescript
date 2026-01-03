@@ -1,10 +1,5 @@
-class Persona {
-  constructor(public nombre: string) {}
+import { ATM_Cliente } from "./ATM_Cliente.js";
 
-  saludar(): void {
-    console.log(`Hola, soy ${this.nombre}`);
-  }
-}
-
-const p = new Persona("Elian");
-p.saludar();
+window.addEventListener("DOMContentLoaded", () => {
+  new ATM_Cliente();
+});

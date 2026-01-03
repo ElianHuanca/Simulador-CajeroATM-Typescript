@@ -1,4 +1,4 @@
-import { Observador } from "./Observador";
+import { Observador } from "./Observador.js";
 
 export interface Notificador {
     agregar(obs: Observador): void;

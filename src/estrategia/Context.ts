@@ -1,9 +1,9 @@
-import { Notificador } from "../observador/Notificador";
-import { Observador } from "../observador/Observador";
-import { OperacionEstrategia } from "./OperacionEstrategia";
-import { ManejadorBillete } from "../cadenaDeResponsabilidad/ManejadorBillete";
-import { DepositoYRetiro } from "../cadenaDeResponsabilidad/DepositoYRetiro";
-import { Cajero } from "../cadenaDeResponsabilidad/Cajero";
+import { Notificador } from "../observador/Notificador.js";
+import { Observador } from "../observador/Observador.js";
+import { OperacionEstrategia } from "./OperacionEstrategia.js";
+import { ManejadorBillete } from "../cadenaDeResponsabilidad/ManejadorBillete.js";
+import { DepositoYRetiro } from "../cadenaDeResponsabilidad/DepositoYRetiro.js";
+import { Cajero } from "../cadenaDeResponsabilidad/Cajero.js";
 
 export class Context implements Notificador {
 

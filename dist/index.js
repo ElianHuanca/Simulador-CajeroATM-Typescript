@@ -1,11 +1,4 @@
-"use strict";
-class Persona {
-    constructor(nombre) {
-        this.nombre = nombre;
-    }
-    saludar() {
-        console.log(`Hola, soy ${this.nombre}`);
-    }
-}
-const p = new Persona("Elian");
-p.saludar();
+import { ATM_Cliente } from "./ATM_Cliente.js";
+window.addEventListener("DOMContentLoaded", () => {
+    new ATM_Cliente();
+});

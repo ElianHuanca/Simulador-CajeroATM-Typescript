@@ -1,24 +1,18 @@
 import { ManejadorBillete } from "./ManejadorBillete.js";
-import { DepositoYRetiro } from "./DepositoYRetiro.js";
-import { Cajero } from "./Cajero.js";
-
 export class Billete10Manejador extends ManejadorBillete {
-    retirar(retiro: DepositoYRetiro, cajero: Cajero): string {
-        let resultado: string = "";
-        
-        const cantidadRequerida: number = retiro.getCantidadRestante();
-        const cantidadBilletes: number = Math.floor(cantidadRequerida / 10);        
-        const billetes10: number = cajero.getBilletes10();
-        
-        if (cantidadBilletes > 0) {            
+    retirar(retiro, cajero) {
+        let resultado = "";
+        const cantidadRequerida = retiro.getCantidadRestante();
+        const cantidadBilletes = Math.floor(cantidadRequerida / 10);
+        const billetes10 = cajero.getBilletes10();
+        if (cantidadBilletes > 0) {
             resultado += `Se entregan ${cantidadBilletes} billetes de 10\n`;
             cajero.setBilletes10(billetes10 - cantidadBilletes);
         }
         return resultado;
     }
-
-    depositar(deposito: DepositoYRetiro, cajero: Cajero): string {
-        let resultado: string = "";
+    depositar(deposito, cajero) {
+        let resultado = "";
         const cantidadRequerida = deposito.getCantidadRestante();
         const cantidadBilletes = Math.floor(cantidadRequerida / 10);
         if (cantidadBilletes > 0) {

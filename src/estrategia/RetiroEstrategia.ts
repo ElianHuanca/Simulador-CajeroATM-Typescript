@@ -1,7 +1,7 @@
-import { ManejadorBillete } from "../cadenaDeResponsabilidad/ManejadorBillete";
-import { DepositoYRetiro } from "../cadenaDeResponsabilidad/DepositoYRetiro";
-import { Cajero } from "../cadenaDeResponsabilidad/Cajero";
-import { OperacionEstrategia } from "./OperacionEstrategia";
+import { ManejadorBillete } from "../cadenaDeResponsabilidad/ManejadorBillete.js";
+import { DepositoYRetiro } from "../cadenaDeResponsabilidad/DepositoYRetiro.js";
+import { Cajero } from "../cadenaDeResponsabilidad/Cajero.js";
+import { OperacionEstrategia } from "./OperacionEstrategia.js";
 
 export class RetiroEstrategia extends OperacionEstrategia {
     ejecutarOperacion(manejador: ManejadorBillete, operacion: DepositoYRetiro, cajero: Cajero): string {

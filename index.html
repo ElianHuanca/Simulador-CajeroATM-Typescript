@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Simulador Cajero ATM</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<body>
+    <h1 class="text-center my-4">Bienvenido al Cajero ATM</h1>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">Tipo de transacción</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tipo_transaccion" id="deposito"
+                                    value="deposito" required>
+                                <label class="form-check-label" for="deposito">
+                                    Depósito
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tipo_transaccion" id="retiro"
+                                    value="retiro">
+                                <label class="form-check-label" for="retiro">
+                                    Retiro
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center mt-3">
+                            <img id="imagenOperacion" src="" alt="Operación" class="img-fluid d-none"
+                                style="max-height: 220px;">
+                        </div>
+                        <div class="mb-3">
+                            <label for="descripcion" class="form-label">Descripción</label>
+                            <textarea class="form-control" id="descripcion" rows="3"></textarea>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">Realizar Operacion</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Cantidad de Billetes</h5>
+                        <div class="mb-3">
+                            <label for="cantidad200" class="form-label">Billetes de 200Bs:</label>
+                            <input type="number" class="form-control" id="cantidad200">
+                        </div>
+                        <div class="mb-3">
+                            <label for="cantidad100" class="form-label">Billetes de 100Bs:</label>
+                            <input type="number" class="form-control" id="cantidad100">
+                        </div>
+                        <div class="mb-3">
+                            <label for="cantidad50" class="form-label">Billetes de 50Bs:</label>
+                            <input type="number" class="form-control" id="cantidad50">
+                        </div>
+                        <div class="mb-3">
+                            <label for="cantidad20" class="form-label">Billetes de 20Bs:</label>
+                            <input type="number" class="form-control" id="cantidad20">
+                        </div>
+                        <div class="mb-3">
+                            <label for="cantidad10" class="form-label">Billetes de 10Bs:</label>
+                            <input type="number" class="form-control" id="cantidad10">
+                        </div>
+                        <div class="mb-3">
+                            <label for="totalCuenta" class="form-label">Total en Cajero (Bs):</label>
+                            <input type="number" class="form-control" id="totalCajero" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script type="module" src="dist/index.js"></script>
+</body>
+</html>
