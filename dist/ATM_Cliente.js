@@ -20,6 +20,7 @@ export class ATM_Cliente {
         this.billete10 = new Billete10Manejador();
         this.cajero = new Cajero(3, 5, 10, 20, 30);
         this.depositoRetiro = new DepositoYRetiro(1000, 300);
+        this.timeouts = new Map();
         this.configurarCadena();
         this.initComponents();
         this.actualizarCajero();
@@ -36,10 +37,71 @@ export class ATM_Cliente {
         this.input50 = document.getElementById("cantidad50");
         this.input20 = document.getElementById("cantidad20");
         this.input10 = document.getElementById("cantidad10");
+        this.rbDeposito = document.getElementById("deposito");
+        this.rbRetiro = document.getElementById("retiro");
+        this.saldoDisponible = document.getElementById("saldo");
+        this.montoOperacion = document.getElementById("monto");
+        this.imagenOperacion = document.getElementById("imagen-operacion");
+        this.txtAreaDescripcion = document.getElementById("descripcion");
+        this.btnOperacion = document.getElementById("btn-operacion");
         this.inputTotalCajero = document.getElementById("totalCajero");
+        this.configurarInputBilletes(this.input200, () => this.cajero.getBilletes200(), (v) => this.cajero.setBilletes200(v));
+        this.configurarInputBilletes(this.input100, () => this.cajero.getBilletes100(), (v) => this.cajero.setBilletes100(v));
+        this.configurarInputBilletes(this.input50, () => this.cajero.getBilletes50(), (v) => this.cajero.setBilletes50(v));
+        this.configurarInputBilletes(this.input20, () => this.cajero.getBilletes20(), (v) => this.cajero.setBilletes20(v));
+        this.configurarInputBilletes(this.input10, () => this.cajero.getBilletes10(), (v) => this.cajero.setBilletes10(v));
+        this.contexto.agregar(this);
+    }
+    configurarInputBilletes(input, getValor, setValor) {
+        input.addEventListener("input", () => {
+            const timeout = this.timeouts.get(input);
+            if (timeout) {
+                clearTimeout(timeout);
+            }
+            const nuevoTimeout = window.setTimeout(() => {
+                const cantidad = Number(input.value);
+                if (isNaN(cantidad) || cantidad < 0) {
+                    console.log("Cantidad inválida");
+                    input.value = getValor().toString();
+                    return;
+                }
+                setValor(cantidad);
+                this.inputTotalCajero.value = this.cajero
+                    .getTotalDisponible()
+                    .toString();
+            }, 1500);
+            this.timeouts.set(input, nuevoTimeout);
+        });
     }
     actualizar() {
-        console.log("ATM actualizado");
+        console.log("Hubo un cambio en la estrategia");
+        if (this.btnOperacion.disabled) {
+            this.btnOperacion.disabled = false;
+        }
+        if (this.rbDeposito.checked) {
+            console.log("Estrategia de depósito seleccionada");
+            this.imagenOperacion.src = './assets/depositarDinero.jpg';
+        }
+        if (this.rbRetiro.checked) {
+            console.log("Estrategia de retiro seleccionada");
+            this.imagenOperacion.src = './assets/retirarDinero.jpg';
+        }
+    }
+    imprimir(note) {
+        this.txtAreaDescripcion.value = "";
+        this.txtAreaDescripcion.value += note + "\n";
+    }
+    iniciarOperacion() {
+        const monto = Number(this.montoOperacion.value.trim());
+        const saldo = Number(this.saldoDisponible.value.trim());
+        if (monto < 10 || monto % 10 != 0) {
+            this.imprimir("Monto inválido. Debe ser múltiplo de 10 y mayor o igual a 10.");
+            return;
+        }
+        let resultado = "";
+        this.depositoRetiro = new DepositoYRetiro(saldo, monto);
+        resultado = this.contexto.realizarOperacion(this.billete200, this.depositoRetiro, this.cajero);
+        this.imprimir(resultado);
         this.actualizarCajero();
     }
     actualizarCajero() {
