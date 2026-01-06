@@ -32,9 +32,9 @@ export class ATM_Cliente implements Observador {
   private btnOperacion!: HTMLButtonElement;
   private inputTotalCajero!: HTMLInputElement;
   private timeouts = new Map<HTMLInputElement, number>();
-  private rbDeposito! : HTMLInputElement;
-  private rbRetiro! : HTMLInputElement;
-  private txtAreaDescripcion! : HTMLTextAreaElement;
+  private rbDeposito!: HTMLInputElement;
+  private rbRetiro!: HTMLInputElement;
+  private txtAreaDescripcion!: HTMLTextAreaElement;
   private saldoDisponible!: HTMLInputElement;
   private montoOperacion!: HTMLInputElement;
   private imagenOperacion!: HTMLImageElement;
@@ -42,7 +42,7 @@ export class ATM_Cliente implements Observador {
   constructor() {
     this.configurarCadena();
     this.initComponents();
-    this.actualizarCajero();    
+    this.actualizarCajero();
   }
 
   private configurarCadena(): void {
@@ -62,14 +62,16 @@ export class ATM_Cliente implements Observador {
     this.rbRetiro = document.getElementById("retiro") as HTMLInputElement;
     this.saldoDisponible = document.getElementById("saldo") as HTMLInputElement;
     this.montoOperacion = document.getElementById("monto") as HTMLInputElement;
-    this.imagenOperacion = document.getElementById("imagen-operacion") as HTMLImageElement;
+    this.imagenOperacion = document.getElementById(
+      "imagen-operacion"
+    ) as HTMLImageElement;
     this.txtAreaDescripcion = document.getElementById(
       "descripcion"
     ) as HTMLTextAreaElement;
 
     this.btnOperacion = document.getElementById(
       "btn-operacion"
-    ) as HTMLButtonElement;    
+    ) as HTMLButtonElement;
     this.inputTotalCajero = document.getElementById(
       "totalCajero"
     ) as HTMLInputElement;
@@ -103,6 +105,20 @@ export class ATM_Cliente implements Observador {
       () => this.cajero.getBilletes10(),
       (v) => this.cajero.setBilletes10(v)
     );
+    this.rbDeposito.addEventListener("change", (event) => {
+      if (this.rbDeposito.checked) {
+        this.contexto.setEstrategia(this.depositoEstrategia);
+      }
+    });
+
+    this.rbRetiro.addEventListener("change", (event) => {
+      if (this.rbRetiro.checked) {
+        this.contexto.setEstrategia(this.retiroEstrategia);
+      }
+    });
+    this.btnOperacion.addEventListener("click", (event) => {
+      this.iniciarOperacion();
+    });
     this.contexto.agregar(this);
   }
 
@@ -138,20 +154,20 @@ export class ATM_Cliente implements Observador {
 
   actualizar(): void {
     console.log("Hubo un cambio en la estrategia");
-    if(this.btnOperacion.disabled){
+    if (this.btnOperacion.disabled) {
       this.btnOperacion.disabled = false;
     }
     if (this.rbDeposito.checked) {
       console.log("Estrategia de depósito seleccionada");
-        this.imagenOperacion.src = './assets/depositarDinero.jpg';
+      this.imagenOperacion.src = "../assets/depositarDinero.jpg";
     }
     if (this.rbRetiro.checked) {
       console.log("Estrategia de retiro seleccionada");
-        this.imagenOperacion.src = './assets/retirarDinero.jpg';        
+      this.imagenOperacion.src = "../assets/retirarDinero.jpg";
     }
   }
 
-  imprimir(note:string):void {
+  imprimir(note: string): void {
     this.txtAreaDescripcion.value = "";
     this.txtAreaDescripcion.value += note + "\n";
   }
@@ -159,17 +175,26 @@ export class ATM_Cliente implements Observador {
   iniciarOperacion(): void {
     const monto = Number(this.montoOperacion.value.trim());
     const saldo = Number(this.saldoDisponible.value.trim());
-    if(monto <10 || monto%10!=0){
-      this.imprimir("Monto inválido. Debe ser múltiplo de 10 y mayor o igual a 10.");
+    if (monto < 10 || monto % 10 != 0) {
+      this.imprimir(
+        "Monto inválido. Debe ser múltiplo de 10 y mayor o igual a 10."
+      );
       return;
     }
-    let resultado:string="";
-    this.depositoRetiro=new DepositoYRetiro(saldo,monto);
-    resultado=this.contexto.realizarOperacion(this.billete200,this.depositoRetiro,this.cajero);
+    let resultado: string = "";
+    this.depositoRetiro = new DepositoYRetiro(saldo, monto);
+    resultado = this.contexto.realizarOperacion(
+      this.billete200,
+      this.depositoRetiro,
+      this.cajero
+    );
     this.imprimir(resultado);
     this.actualizarCajero();
   }
+
   actualizarCajero(): void {
+    this.saldoDisponible.value = this.depositoRetiro.getTotalCuenta().toString();
+    this.montoOperacion.value = this.depositoRetiro.getCantidadOperacion().toString();
     this.inputTotalCajero.value = this.cajero.getTotalDisponible().toString();
     this.input200.value = this.cajero.getBilletes200().toString();
     this.input100.value = this.cajero.getBilletes100().toString();

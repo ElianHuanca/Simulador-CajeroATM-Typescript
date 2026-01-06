@@ -50,6 +50,19 @@ export class ATM_Cliente {
         this.configurarInputBilletes(this.input50, () => this.cajero.getBilletes50(), (v) => this.cajero.setBilletes50(v));
         this.configurarInputBilletes(this.input20, () => this.cajero.getBilletes20(), (v) => this.cajero.setBilletes20(v));
         this.configurarInputBilletes(this.input10, () => this.cajero.getBilletes10(), (v) => this.cajero.setBilletes10(v));
+        this.rbDeposito.addEventListener("change", (event) => {
+            if (this.rbDeposito.checked) {
+                this.contexto.setEstrategia(this.depositoEstrategia);
+            }
+        });
+        this.rbRetiro.addEventListener("change", (event) => {
+            if (this.rbRetiro.checked) {
+                this.contexto.setEstrategia(this.retiroEstrategia);
+            }
+        });
+        this.btnOperacion.addEventListener("click", (event) => {
+            this.iniciarOperacion();
+        });
         this.contexto.agregar(this);
     }
     configurarInputBilletes(input, getValor, setValor) {
@@ -80,11 +93,11 @@ export class ATM_Cliente {
         }
         if (this.rbDeposito.checked) {
             console.log("Estrategia de depósito seleccionada");
-            this.imagenOperacion.src = './assets/depositarDinero.jpg';
+            this.imagenOperacion.src = "../assets/depositarDinero.jpg";
         }
         if (this.rbRetiro.checked) {
             console.log("Estrategia de retiro seleccionada");
-            this.imagenOperacion.src = './assets/retirarDinero.jpg';
+            this.imagenOperacion.src = "../assets/retirarDinero.jpg";
         }
     }
     imprimir(note) {
@@ -105,6 +118,8 @@ export class ATM_Cliente {
         this.actualizarCajero();
     }
     actualizarCajero() {
+        this.saldoDisponible.value = this.depositoRetiro.getTotalCuenta().toString();
+        this.montoOperacion.value = this.depositoRetiro.getCantidadOperacion().toString();
         this.inputTotalCajero.value = this.cajero.getTotalDisponible().toString();
         this.input200.value = this.cajero.getBilletes200().toString();
         this.input100.value = this.cajero.getBilletes100().toString();
