@@ -93,11 +93,11 @@ export class ATM_Cliente {
         }
         if (this.rbDeposito.checked) {
             console.log("Estrategia de depósito seleccionada");
-            this.imagenOperacion.src = "../assets/depositarDinero.jpg";
+            this.imagenOperacion.src = `${ATM_Cliente.BASE_PATH}/assets/depositarDinero.jpg`;
         }
         if (this.rbRetiro.checked) {
             console.log("Estrategia de retiro seleccionada");
-            this.imagenOperacion.src = "../assets/retirarDinero.jpg";
+            this.imagenOperacion.src = `${ATM_Cliente.BASE_PATH}/assets/retirarDinero.jpg`;
         }
     }
     imprimir(note) {
@@ -128,3 +128,6 @@ export class ATM_Cliente {
         this.input10.value = this.cajero.getBilletes10().toString();
     }
 }
+ATM_Cliente.BASE_PATH = location.hostname === "localhost"
+    ? ".."
+    : "/simulador-cajero-atm";

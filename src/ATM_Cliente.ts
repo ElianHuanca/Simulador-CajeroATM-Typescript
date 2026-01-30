@@ -11,6 +11,11 @@ import { RetiroEstrategia } from "./estrategia/RetiroEstrategia.js";
 import { Observador } from "./observador/Observador.js";
 
 export class ATM_Cliente implements Observador {
+  private static readonly BASE_PATH: string =
+  location.hostname === "localhost"
+    ? ".."
+    : "/simulador-cajero-atm";
+  
   private retiroEstrategia = new RetiroEstrategia();
   private depositoEstrategia = new DepositoEstrategia();
   private contexto = new Context(this.retiroEstrategia);
@@ -159,11 +164,11 @@ export class ATM_Cliente implements Observador {
     }
     if (this.rbDeposito.checked) {
       console.log("Estrategia de depósito seleccionada");
-      this.imagenOperacion.src = "../assets/depositarDinero.jpg";
+      this.imagenOperacion.src = `${ATM_Cliente.BASE_PATH}/assets/depositarDinero.jpg`;
     }
     if (this.rbRetiro.checked) {
       console.log("Estrategia de retiro seleccionada");
-      this.imagenOperacion.src = "../assets/retirarDinero.jpg";
+      this.imagenOperacion.src = `${ATM_Cliente.BASE_PATH}/assets/retirarDinero.jpg`;
     }
   }
 

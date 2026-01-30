@@ -1,0 +1,7 @@
+services:
+  simulador-atm:
+    image: elianhuanca/simulador-cajero-atm:latest
+    container_name: simulador-cajero-atm
+    ports:
+      - "8080:80"
+    restart: unless-stopped
