@@ -14,7 +14,7 @@ export class ATM_Cliente implements Observador {
   private static readonly BASE_PATH: string =
   location.hostname === "localhost"
     ? ".."
-    : "/Simulador-CajeroATM-Typescript";
+    : "/simulador-cajeroatm";
   
   private retiroEstrategia = new RetiroEstrategia();
   private depositoEstrategia = new DepositoEstrategia();

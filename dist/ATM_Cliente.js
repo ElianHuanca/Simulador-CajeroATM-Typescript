@@ -130,4 +130,4 @@ export class ATM_Cliente {
 }
 ATM_Cliente.BASE_PATH = location.hostname === "localhost"
     ? ".."
-    : "/Simulador-CajeroATM-Typescript";
+    : "/simulador-cajeroatm";
